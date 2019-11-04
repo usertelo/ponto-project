@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error}}
+<br />
+{% endif %}
+
+<h4>Criar nova atividade:</h4>
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  Tipo:
+  <br />
+  <select id="Tipo" name="activity_type">
+    <option value="T">Teórico</option>
+    <option value="TP">Teórico-Prático</option>
+    <option value="P">Prático</option>
+  </select>
+  <br />
+  Código:
+  <br />
+  <input type="text" name="code" />
+  <br />
+  Descrição:
+  <br />
+  <input type="text" name="description" />
+  <br />
+  Forma de usar:
+  <br />
+  <input type="text" name="use" /> <input class="btn btn-primary" type="submit" value="Criar" />
+  <br />
+</form>
+
+<br />
+<h4>Lista de atividades:</h4>
+
+<div class="row pt-1">
+  <div class="col-1">
+    <h5>Tipo</h5>
+  </div>
+  <div class="col-1">
+    <h5>Código</h5>
+  </div>
+  <div class="col-4">
+    <h5>Descrição</h5>
+  </div>
+  <div class="col-6">
+    <h5>Forma de usar</h5>
+  </div>
+</div>
+
+{% for activity in activities.all %}
+<div class="row pt-1">
+  <div class="col-1">
+    <p>{{activity.activity_type}}</p>
+  </div>
+  <div class="col-1" onclick="window.location='{% url 'detail' activity.id %}';" style="cursor: pointer;">
+    <p>{{activity.code}}</p>
+  </div>
+  <div class="col-4">
+    <p>{{activity.description}}</p>
+  </div>
+  <div class="col-6">
+    <p>{{activity.use}}</p>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

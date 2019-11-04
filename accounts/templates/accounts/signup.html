@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error}}
+<br />
+<br />
+{% endif %}
+
+<h2 style="padding-top: 5px">Cadastrar</h2>
+
+<form method="POST" action="{% url 'signup' %}">
+  {% csrf_token %}
+
+  Tipo:
+  <br />
+  <input type="radio" name="type" value="residente">Residente <input type="radio" name="type" value="preceptor">Preceptor
+  <br />
+  Nome de usuário:
+  <br />
+  <input type="text" name="username" />
+  <br />
+  Senha:
+  <br />
+  <input type="password" name="password1" />
+  <br />
+  Confirme a senha:
+  <br />
+  <input type="password" name="password2" />
+  <br />
+  <br />
+
+  <input class="btn btn-primary" type="submit" value="Criar" />
+
+</form>
+
+{% endblock %}
